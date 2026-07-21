@@ -1,3 +1,4 @@
+import type { AppConfig } from '@interceptor/shared';
 import { describe, expect, it } from 'vitest';
 import { formatStartupBanner } from './format';
 
@@ -18,5 +19,15 @@ describe('formatStartupBanner', () => {
 			environment: 'production',
 		});
 		expect(result).toBe('app v2.0.0 [production]');
+	});
+
+	it('returns a fallback banner when config is undefined', () => {
+		const result = formatStartupBanner(undefined as unknown as AppConfig);
+		expect(result).toBe('interceptor-api [unknown config]');
+	});
+
+	it('returns a fallback banner when config is null', () => {
+		const result = formatStartupBanner(null as unknown as AppConfig);
+		expect(result).toBe('interceptor-api [unknown config]');
 	});
 });
